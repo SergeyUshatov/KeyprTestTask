@@ -1,10 +1,9 @@
 package model;
 
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.ResponseBodyExtractionOptions;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
+
 import static io.restassured.RestAssured.given;
 
 public class Rest {
@@ -13,22 +12,18 @@ public class Rest {
     private static String baseUrl = "https://api.github.com";
     private static String testRepoCommits =  baseUrl + "/repos/SergeyUshatov/KeyprTestTask/commits";
 
-
     private static RequestSpecification givenRestClientOauth(){
-//        return given().auth().oauth(consumerKey, consumerSecret, token, tokenSecret);
-        return given().auth().oauth2(accessToken);
+        return given().auth().basic(clientId, accessToken);
     }
 
 
-    public static GHCommits getTestRepoCommits() {
-        RequestSpecification auth = givenRestClientOauth();
-
-        JsonPath test = givenRestClientOauth().contentType(ContentType.JSON)
+    public static GHCommit[] getTestRepoCommits() {
+        return givenRestClientOauth()
+                    .contentType(ContentType.JSON)
                .when()
                     .get(testRepoCommits)
                .then()
                     .statusCode(HttpStatus.SC_OK)
-                    .extract().body().jsonPath();
-        return null;
+                    .extract().body().as(GHCommit[].class);
     }
 }
