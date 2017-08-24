@@ -1,28 +1,32 @@
 package github.api;
 
-import model.GHCommits;
+import model.Commit;
+import model.GHCommit;
 import model.Rest;
-import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.apache.http.HttpStatus;
+import testData.TestData;
 
-import java.io.IOException;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-import static io.restassured.RestAssured.given;
 
 public class GithubSteps {
 
-    @When("I GET github commits for test repo")
-    public void whenIGETGithubCommitsForTestRepo() throws IOException {
-        GHCommits commits = Rest.getTestRepoCommits();
-        System.out.println("dcsdc");
+    @When("I GET Github Commits of the Test Repo")
+    public void whenIGETGithubCommitsOfTheTestRepo() {
+        GHCommit[] commits = Rest.getTestRepoCommits();
+        TestData.addTestData(TestData.commits, commits);
     }
 
-    @Then("I see a list of commits for the test repo")
-    public void thenISeeAListOfCommitsForTheTestRepo() {
-        // PENDING
+    @Then("I see a list of commits of the test repo")
+    public void thenISeeAListOfCommitsOfTheTestRepo() {
+        GHCommit[] commits = TestData.getTestData(TestData.commits);
+        assertThat(commits.length, greaterThan(0));
+        GHCommit firstCommitInArray = commits[0];
+        assertThat(firstCommitInArray.getSha(), instanceOf(String.class));
+        assertThat(firstCommitInArray.getSha(), is(notNullValue()));
+        assertThat(firstCommitInArray.getCommit(), instanceOf(Commit.class));
+        assertThat(firstCommitInArray.getCommit(), is(notNullValue()));
     }
 }

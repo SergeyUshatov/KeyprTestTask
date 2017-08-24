@@ -6,5 +6,5 @@ I want to test GitHub API
 So that I complete the task
 
 Scenario: Test gitHub commits
-When I GET github commits for test repo
-Then I see a list of commits for the test repo
+When I GET Github Commits of the Test Repo
+Then I see a list of commits of the test repo
