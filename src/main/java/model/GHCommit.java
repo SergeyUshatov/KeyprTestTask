@@ -24,8 +24,9 @@ public class GHCommit {
         return commit;
     }
 
-    public void setCommit(Commit commit) {
+    public GHCommit setCommit(Commit commit) {
         this.commit = commit;
+        return this;
     }
 
     public String getUrl() {
@@ -72,7 +73,8 @@ public class GHCommit {
         return parents;
     }
 
-    public void setParents(List<Parent> parents) {
+    public GHCommit setParents(List<Parent> parents) {
         this.parents = parents;
+        return this;
     }
 }

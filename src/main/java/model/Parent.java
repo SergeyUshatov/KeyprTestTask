@@ -5,6 +5,19 @@ public class Parent {
     private String url;
     private String html_url;
 
+    public Parent() {}
+
+    public Parent(String sha) {
+        this.sha = sha;
+    }
+
+    @Override
+    public String toString() {
+        return "Parent{" +
+                "sha='" + sha + '\'' +
+                '}';
+    }
+
     public String getSha() {
         return sha;
     }
