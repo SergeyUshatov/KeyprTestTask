@@ -8,3 +8,8 @@ So that I complete the task
 Scenario: Test gitHub commits
 When I GET Github Commits of the Test Repo
 Then I see a list of commits of the test repo
+
+Scenario: Get a single commit
+Given I GET Github Commits of the Test Repo
+When I GET a single commit
+Then I see all commits have a single commit

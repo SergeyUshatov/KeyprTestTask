@@ -11,6 +11,8 @@ public class GHCommit {
     private Author author;
     private Committer committer;
     private List<Parent> parents;
+    private GHStats stats;
+    private List<GHFile> files;
 
     public String getSha() {
         return sha;
@@ -74,5 +76,36 @@ public class GHCommit {
 
     public void setParents(List<Parent> parents) {
         this.parents = parents;
+    }
+
+    public GHStats getStats() {
+        return stats;
+    }
+
+    public void setStats(GHStats stats) {
+        this.stats = stats;
+    }
+
+    public List<GHFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<GHFile> files) {
+        this.files = files;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GHCommit)) return false;
+
+        GHCommit ghCommit = (GHCommit) o;
+
+        return getSha().equals(ghCommit.getSha());
+    }
+
+    @Override
+    public int hashCode() {
+        return getSha().hashCode();
     }
 }
