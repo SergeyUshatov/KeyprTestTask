@@ -7,6 +7,15 @@ public class Commit {
     private GHTree tree;
     private String url;
     private int comment_count;
+    private Verification verification;
+
+    public Verification getVerification() {
+        return verification;
+    }
+
+    public void setVerification(Verification verification) {
+        this.verification = verification;
+    }
 
     public Author getAuthor() {
         return author;

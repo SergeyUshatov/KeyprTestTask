@@ -3,6 +3,8 @@ package github.api;
 import model.Commit;
 import model.GHCommit;
 import model.Rest;
+import model.Verification;
+import org.jbehave.core.annotations.Composite;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -51,5 +53,31 @@ public class GithubSteps {
         assertThat(singleCommit, instanceOf(GHCommit.class));
         assertThat(singleCommit.getSha(), not(isEmptyOrNullString()));
         assertThat(commitsList, hasItem(singleCommit));
+    }
+
+    @When("I GET a signature verification of the commit")
+    public void whenIGETASignatureVerificationOfTheCommit() {
+        GHCommit[] commits = TestData.get(TestData.commits);
+        GHCommit singleCommit = commits[0];
+        GHCommit commitWithVerification = Rest.getSingleCommitWithWerification(singleCommit.getSha());
+        TestData.add(TestData.commitWithVerification, commitWithVerification);
+    }
+
+    @Then("I see Commit has signature verification")
+    public void thenISeeCommitHasSignatureVerification() {
+        GHCommit commit = TestData.get(TestData.commitWithVerification);
+        Verification verification = commit.getCommit().getVerification();
+        assertThat(verification, not(nullValue()));
+        assertThat(verification.isVerified(), is(notNullValue()));
+        assertThat(verification.isVerified(), instanceOf(Boolean.class));
+        if (!verification.isVerified()){
+            assertThat(verification.getReason(), is(notNullValue()));
+            assertThat(verification.getSignature(), is(nullValue()));
+            assertThat(verification.getPayload(), is(nullValue()));
+        }else{
+            assertThat(verification.getReason(), equalTo("valid"));
+            assertThat(verification.getSignature(), is(notNullValue()));
+            assertThat(verification.getPayload(), is(notNullValue()));
+        }
     }
 }

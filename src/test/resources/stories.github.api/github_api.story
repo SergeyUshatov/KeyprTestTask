@@ -13,3 +13,8 @@ Scenario: Get a single commit
 Given I GET Github Commits of the Test Repo
 When I GET a single commit
 Then I see all commits have a single commit
+
+Scenario: Commit signature verification
+Given I GET Github Commits of the Test Repo
+When I GET a signature verification of the commit
+Then I see Commit has signature verification

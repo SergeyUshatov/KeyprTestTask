@@ -14,6 +14,7 @@ public class GHCommit {
     private GHStats stats;
     private List<GHFile> files;
 
+
     public String getSha() {
         return sha;
     }

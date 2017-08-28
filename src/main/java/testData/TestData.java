@@ -7,6 +7,7 @@ public class TestData {
     private static Map<String, Object> data = new HashMap<String, Object>();
     public static final String commits = "Commits";
     public static final String singleCommit = "Single Commit";
+    public static final String commitWithVerification = "Commit With Verification";
 
     public static <T> void add(String key, T obj){
         try {
