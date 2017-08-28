@@ -49,4 +49,13 @@ public class Rest {
                     .statusCode(HttpStatus.SC_OK)
                     .extract().body().as(GHCommit.class);
     }
+
+    public static GHCompare getComparison() {
+        return givenRestClientOauth()
+                .when()
+                    .get(compareCommitsUrl)
+                .then()
+                    .statusCode(HttpStatus.SC_OK)
+                    .extract().body().as(GHCompare.class);
+    }
 }

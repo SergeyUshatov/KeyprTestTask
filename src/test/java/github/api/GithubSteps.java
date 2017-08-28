@@ -1,9 +1,6 @@
 package github.api;
 
-import model.Commit;
-import model.GHCommit;
-import model.Rest;
-import model.Verification;
+import model.*;
 import org.jbehave.core.annotations.Composite;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
@@ -79,5 +76,25 @@ public class GithubSteps {
             assertThat(verification.getSignature(), is(notNullValue()));
             assertThat(verification.getPayload(), is(notNullValue()));
         }
+    }
+
+    @When("I GET comparison of two commits")
+    public void whenIGETComparisonOfTwoCommits() {
+        GHCompare comparison = Rest.getComparison();
+        TestData.add(TestData.comparison, comparison);
+    }
+
+    @Then("I see comparison information of two commits")
+    public void thenISeeComparisonInformationOfTwoCommits() {
+        GHCompare comparison = TestData.get(TestData.comparison);
+        assertThat(comparison, is(notNullValue()));
+        assertThat(comparison.getBase_commit(), instanceOf(GHCommit.class));
+        assertThat(comparison.getMerge_base_commit(), instanceOf(GHCommit.class));
+        assertThat(comparison.getStatus(), not(isEmptyOrNullString()));
+        assertThat(comparison.getAhead_by(), greaterThan(0));
+        assertThat(comparison.getBehind_by(), greaterThan(0));
+        assertThat(comparison.getTotal_commits(), greaterThan(0));
+        assertThat(comparison.getCommits().size(), greaterThan(0));
+        assertThat(comparison.getFiles().size(), greaterThan(0));
     }
 }
