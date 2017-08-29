@@ -1,6 +1,6 @@
 * # Manual run of the test task
 
-If you just want to run tests you can clone them, and run them from IDE or open project directory in terminal and execute:
+If you just want to run tests you can clone them, and run them from IDE or open project directory in terminal and execute (you should have maven installed on your system):
 ```
 mvn verify
 ```
